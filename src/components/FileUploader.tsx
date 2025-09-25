@@ -5,17 +5,20 @@ import React, { useCallback, useState } from 'react';
 import { Upload, File, AlertCircle, CheckCircle } from 'lucide-react';
 import { FileUploadState } from '../types/excel';
 import { processExcelFile, isValidExcelFile, formatFileSize } from '../utils/excelProcessor';
+import { processBBVAFile } from '../utils/excelProcessorBBVA_v2';
 
 interface FileUploaderProps {
   label: string;
   onFileProcessed: (data: FileUploadState) => void;
   uploadState: FileUploadState;
+  bankType?: 'BBVA' | 'BCP';
 }
 
 export const FileUploader: React.FC<FileUploaderProps> = ({ 
   label, 
   onFileProcessed, 
-  uploadState 
+  uploadState,
+  bankType
 }) => {
   const [dragOver, setDragOver] = useState(false);
 
@@ -40,7 +43,12 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
     });
 
     try {
-      const data = await processExcelFile(file);
+      let data;
+      if (bankType === 'BBVA') {
+        data = await processBBVAFile(file);
+      } else {
+        data = await processExcelFile(file, bankType);
+      }
       onFileProcessed({
         file,
         data,

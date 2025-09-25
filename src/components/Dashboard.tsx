@@ -151,11 +151,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               label="Archivo BBVA"
               onFileProcessed={handleFile1Upload}
               uploadState={file1State}
+              bankType="BBVA"
             />
             <FileUploader
               label="Archivo BCP"
               onFileProcessed={handleFile2Upload}
               uploadState={file2State}
+              bankType="BCP"
             />
           </div>
 

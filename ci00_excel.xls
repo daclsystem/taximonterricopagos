@@ -1,0 +1,856 @@
+
+
+<HTML>
+<HEAD>
+  <title></title> 
+  <meta http-equiv="Expires" CONTENT="0">
+  <meta http-equiv="Pragma" CONTENT="no-cache">  
+</HEAD> 
+<BODY bgcolor="#ffffff">
+	
+
+
+
+ 
+ 
+<div align="left">
+
+
+
+
+<p>
+	<img width="264" height="69"
+		src="https://www.bbva.pe/content/dam/public-web/peru/images/logos/logo-bbva.png">
+</p>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+
+<body>
+	
+
+<div id="cia_data">
+	<ul>
+		<li id="id_cia_name" class="cia_name"><span>COMPA#IA MONTERRICO DE MOVILIDAD Y MENSAJERIA SAC</span></li>
+		<li id="id_today_date" class="today_date"><span>2025/09/24  07:40:16</span></li>
+	</ul>
+
+</div>
+
+
+<div id="gestor_data" style="margin:-8px 0px 15px 0px; font-size:10px;">
+	
+	
+	
+</div>
+
+
+	<iframe style="display: none" id="frameMonitorB"></iframe>
+	<iframe style="display: none" id="frameMonitorA"></iframe>
+
+
+
+
+
+
+	
+</body>
+</html>
+
+<div class="page_title">
+	<h2>Consulta de Pagos Masivos</h2>
+
+	
+
+</div>
+
+<form name="cuerpo" method="post">
+
+	<input type="hidden" name="doi"> <input type="hidden"
+		name="nro_doi"> <input type="hidden" name="tipo"> <input
+		type="hidden" name="cuenta_abono"> <input type="hidden"
+		name="nombre_beneficiario"> <input type="hidden"
+		name="importe_abonar"> <input type="hidden"
+		name="tipo_documento"> <input type="hidden"
+		name="nro_documento"> <input type="hidden" name="abono">
+
+	<input type="hidden" name="referencia"> <input type="hidden"
+		name="indicador"> <input type="hidden" name="email"> <input
+		type="hidden" name="celular"> <input type="hidden" name="fax">
+	<input type="hidden" name="contacto"> <input type="hidden"
+		name="situacion"> <input type="hidden" name="inditf">
+	<input type="hidden" name="banco"> <input type="hidden"
+		name="titreal"> <input type="hidden" name="moneda"
+		value="SOLES">
+
+	
+<input type="hidden" name="ver" value="KF75">
+	<div class="os_x">
+	<table class="tb_data mn">
+		<tr class="tb_header">
+			<th colspan="6" id="nue">Consulta de la Orden - Antes del
+				proceso</th>
+		</tr>
+		<tr class="tb_column_header">
+			<td class="ta_c" rowspan="2">Nro. Orden</td>
+			<td class="ta_c" rowspan="2">Planilla</td>
+			<td class="ta_c" rowspan="2">Descripción</td>
+			<td class="ta_c" colspan="2">Enviada</td>
+			<td class="ta_c" rowspan="2">Cuenta de Cargo</td>
+		</tr>
+
+		<tr class="tb_column_header">
+			<td class="ta_c">Fecha</td>
+			<td class="ta_c">Hora</td>
+		</tr>
+
+		<tr class="odd nw">
+			<td class="ta_c">0923001</td>
+			<td class="ta_c">PAGO DE PROVEEDORES</td>
+			<td class="ta_c">CANJE 23.09.2025</td>
+			<td class="ta_c">23/09/2025</td>
+			<td class="ta_c">09:49:38</td>
+			<td class="ta_c">
+				0011-0947-0100001046
+			</td>
+		</tr>
+
+		<tr class="tb_column_header">
+			<td class="ta_c">Abonos Enviados</td>
+			<td class="ta_c">Moneda de Cargo</td>
+			<td class="ta_c">Importe Inicialmente informado</td>
+			<td class="ta_c" colspan="2">Horario de Ejecución</td>
+			<td class="ta_c">Situación de Proceso</td>
+		</tr>
+
+		<tr class="even nw">
+			<td class="ta_c">10</td>
+			<td class="ta_c">SOLES</td>
+			<td class="ta_c">1,473.16</td>
+			<td class="ta_c" colspan="2">INMEDIATA</td>
+			<td class="ta_c">TERMINADA OK</td>
+		</tr>
+
+	</table>
+
+</div>
+	
+
+	<div class="info">
+		<h3>Consulta de la Orden - Después del proceso</h3>
+		<table class="tb_info">
+
+			
+			<tr>
+				<td><b>No. Movimiento de Cargo</b></td>
+				<td>000026090</td>
+			</tr>
+
+			
+
+			<tr>
+				<td><b>Fecha y Hora de Ejecución</b></td>
+				
+
+				<td>23/09/2025 - 09:49:38</td>
+			</tr>
+
+			<tr>
+				<td><b>Abonos procesados</b></td>
+				<td>10</td>
+			</tr>
+
+			<tr>
+				<td><b>Importe cargado por abonos</b></td>
+				<td>1,473.16 - SOLES</td>
+			</tr>
+
+			<tr>
+				<td><b>Abonos NO procesados</b></td>
+				<td>0</td>
+			</tr>
+
+			<tr>
+				<td><b>Importe NO abonado</b></td>
+				<td>0.00 - SOLES</td>
+			</tr>
+
+			
+
+			
+
+			<tr>
+				<td><b>Comisión por Otra Plaza</b></td>
+				<td>0.00 - SOLES</td>
+			</tr>
+
+			<tr>
+				<td><b>Comisión Interbancaria</b></td>
+				<td>0.00 - SOLES</td>
+			</tr>
+
+			
+
+			<tr>
+				<td><b>TOTAL CARGADO</b></td>
+				<td>1,473.16 - SOLES</td>
+			</tr>
+
+			
+
+		</table>
+
+	</div>
+	
+
+	
+
+	
+
+	
+<div class="os_x">
+	<table class="tb_data mn">
+		<tr class="tb_header">
+			<th
+				colspan="11"
+				id="nue">Relación de las cuentas de abono</th>
+		</tr>
+
+		<tr class="tb_column_header">
+			<td class="ta_c">Sel</td>
+			<td class="ta_c">No.</td>
+
+			
+			<td class="ta_c">Cuenta</td>
+			
+
+			
+
+			
+
+			<td class="ta_c">Banco</td>
+			<td class="ta_c">Titular(Archivo)</td>
+			<td class="ta_c">Titular(Banco)</td>
+
+			
+			<td class="ta_c">Doc.Identidad</td>
+			<td class="ta_c">Importe</td>
+			
+			  
+			  
+			  
+		
+			
+
+			<td class="ta_c">Situación</td>
+		</tr>
+
+		
+
+
+
+		<tr class="odd nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">1</td>
+			
+			<td class="ta_c">0011-0814-01-01156619 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">BASTOS MACEDO ELENA</td>
+			<td class="ta_c">BASTOS MACEDO ELENA</td>
+
+			
+
+			
+			<td class="ta_c">L - 09289831</td>
+			
+			<td class="ta_r">95.28</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="even nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">2</td>
+			
+			<td class="ta_c">0011-0787-02-00395581 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">BRIONES PEµA RICHARD</td>
+			<td class="ta_c">BRIONES PE#A RICHARD</td>
+
+			
+
+			
+			<td class="ta_c">L - 40167770</td>
+			
+			<td class="ta_r">246.50</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="odd nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">3</td>
+			
+			<td class="ta_c">0011-0814-02-72841697 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">COSTA NIQUEN GINO FABIAN</td>
+			<td class="ta_c">COSTA NIQUEN GINO FABIAN</td>
+
+			
+
+			
+			<td class="ta_c">L - 10764124</td>
+			
+			<td class="ta_r">113.16</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="even nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">4</td>
+			
+			<td class="ta_c">0011-0814-02-22368184 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">CURAY ORTIZ TOMAS HUGO</td>
+			<td class="ta_c">CURAY ORTIZ TOMAS HUGO</td>
+
+			
+
+			
+			<td class="ta_c">L - 06790203</td>
+			
+			<td class="ta_r">135.47</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="odd nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">5</td>
+			
+			<td class="ta_c">0011-0312-02-00162680 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">GONZALES FRANCO CRISTIAN</td>
+			<td class="ta_c">GONZALES FRANCO CRISTIAN</td>
+
+			
+
+			
+			<td class="ta_c">L - 10690819</td>
+			
+			<td class="ta_r">98.52</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="even nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">6</td>
+			
+			<td class="ta_c">0011-0814-02-80619847 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">HUAROMO FIGUEROA LIDIA LUZ</td>
+			<td class="ta_c">HUAROMO FIGUEROA LIDIA LUZ</td>
+
+			
+
+			
+			<td class="ta_c">L - 42130502</td>
+			
+			<td class="ta_r">224.81</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="odd nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">7</td>
+			
+			<td class="ta_c">0011-0125-02-00618483 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">LAURA CUµIVO ROBINSON JULIO</td>
+			<td class="ta_c">LAURA CU#IVO ROBINSON JULIO</td>
+
+			
+
+			
+			<td class="ta_c">L - 44215917</td>
+			
+			<td class="ta_r">100.80</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="even nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">8</td>
+			
+			<td class="ta_c">0011-0814-02-36058889 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">MENENDEZ LLERENA FERNANDO ENRIQUE</td>
+			<td class="ta_c">MENENDEZ LLERENA FERNANDO ENRI</td>
+
+			
+
+			
+			<td class="ta_c">L - 03658921</td>
+			
+			<td class="ta_r">130.90</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="odd nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">9</td>
+			
+			<td class="ta_c">0011-0814-02-44520338 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">RUIZ PEZO MIGUEL ENRIQUE</td>
+			<td class="ta_c">RUIZ PEZO MIGUEL ENRIQUE</td>
+
+			
+
+			
+			<td class="ta_c">L - 74231699</td>
+			
+			<td class="ta_r">173.28</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+
+
+		<tr class="even nw">
+			
+			<td class="ta_c">
+				
+			</td>
+			<td class="ta_c">10</td>
+			
+			<td class="ta_c">0011-0814-02-80455836 &nbsp;</td>
+			
+
+			
+
+			
+
+			<td class="ta_c"></td>
+			<td class="ta_c">YANAYACO SILVA JESSICA</td>
+			<td class="ta_c">YANAYACO SILVA JESSICA</td>
+
+			
+
+			
+			<td class="ta_c">L - 60787126</td>
+			
+			<td class="ta_r">154.44</td>
+<!-- 			agregar campos  -->
+<!-- KF75 CAMBIO DE PMP  -->
+		
+			
+
+			
+<!-- CAMBIO DE PMP  -->
+
+
+			<!--  inicio campos agregados por divisa rem-->
+			<!--  validacion de planilla ciega -->
+			
+			<!--  fin campos agregados por divisa rem-->
+			<td class="ta_c">ABONO CORRECTO</td>
+		</tr>
+
+		
+
+	</table>
+</div>
+	
+	
+
+	<div class="msj_ico msj_inf">
+		<p><i></i><b> Estimado Cliente:</b></p>
+		<p><b>Los tipos de documentos para las Transferencias Interbancarias a utilizar son:</b></p>				
+		<div class="p"><div><b>R : RUC</b></div>
+		    <div><b>L : DNI</b></div>
+		    <div><b>P : Pasaporte</b></div>
+		    <div><b>E : Carnet de Extranjería</b></div>
+		    <div><b>M : Carnet de Identidad Militar</b></div>
+		</div>
+	</div>
+
+	
+
+
+	
+
+	<div class="msj_ico msj_inf">
+		<p>
+			<i></i> Estimado Cliente, hemos incluido un campo adicional "Titular
+			(Banco)" que muestra el nombre del cliente que tenemos registrado.
+			Tenga presente este dato para sus futuros pagos. Recuerde que esto
+			sólo aplica para cuentas del BBVA.
+			
+		</p>
+	</div>
+	
+	
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+<div>
+	<p class="negrita">
+		<span class="">Horario:</span>
+	</p>
+	<table class="tb_horario">
+
+		<tr class="tb_column_header">
+			<td rowspan="2" colspan="2" class="ta_c"><strong>Entidad Financiera</strong></td>
+
+			<td width="18%" rowspan="2" class="ta_c"><strong>Hora de envío de tu operación</strong></td>
+
+			<td colspan="2" class="ta_c nw"><strong>Hora en que tu operación llegará al Banco destino</strong></td>
+		</tr>
+
+		<tr class="tb_column_header">
+
+			<td width="18%" class="ta_c"><strong>Días útiles</strong></td>
+
+			<td width="24%" class="ta_c"><strong>Sábado, Domingo, feriado nacional y/u feriado público</strong></td>
+		</tr>
+
+		<tr class="enfasis">
+			<td rowspan="3" class="noborder_r">
+
+				<ul>
+					<li>-Banco de Cr&eacute;dito</li>
+					<li>-Scotiabank</li>
+					<li>-Banco de Comercio</li>
+					<li>-Crediscotia</li>
+					<li>-Banco Falabella</li>
+					<li>-Banco Financiero</li>
+					<li>-CMAC Trujillo</li>
+					<li>-CMAC Arequipa</li>
+					<li>-Caja Metropolitana</li>
+					<li>-Agrobanco</li>
+					<li>-Banco ICBC</li>
+					<li>-Banco Azteca</li>
+				</ul>
+
+			</td>
+			<td rowspan="3" class="noborder_l">
+				<ul>
+					<li>-Interbank</li>
+					<li>-BanBif</li>
+					<li>-GNB</li>
+					<li>-Mi Banco</li>
+					<li>-Banco Ripley</li>
+					<li>-Banco Santander</li>
+					<li>-CMAC Piura</li>
+					<li>-CMAC Sullana</li>
+					<li>-CCMAC Cusco</li>
+					<li>-CMAC Huancayo</li>
+					<li>-CMAC Tacna</li>
+				</ul>
+			</td>
+			<td>Hasta las 11:30 a.m</td>
+			<td><blockquote>A partir de las 2:00 p.m. del mismo día útil</blockquote></td>
+			<td rowspan="3">A partir de las 2:00 p.m. del siguiente día útil</td>
+		</tr>
+		<tr>
+			<td>Entre las 11:30 a.m. y la 1:45 p.m.
+			</td>
+
+			<td><blockquote>A partir de las 4:30 p.m. del mismo día útil</blockquote></td>
+		</tr>
+
+		<tr>
+			<td>Después de la 1:45 p.m.</td>
+			<td><blockquote>A partir de las 8:45 a.m. del siguiente día útil</blockquote></td>
+		</tr>
+		<tr class="enfasis">
+			<td rowspan="2" colspan="2">
+				<ul>
+					<li>-Citibank</li>
+					<li>-Banco de la Naci&oacute;n</li>
+				</ul>
+			</td>
+			<td>Hasta las 1:45 p.m</td>
+
+			<td><blockquote>A partir de las 4:30 p.m. del mismo día útil</blockquote></td>
+			<td rowspan="2">A partir de las 4:30 p.m. del siguiente día útil</td>
+		</tr>
+
+		<tr>
+			<td>Después de la 1:45 p.m.</td>
+			<td><blockquote>A partir de las 8:45 a.m. del siguiente día útil</blockquote></td>
+		</tr>
+	</table>
+</div>
+	
+
+
+	<div class="msj_ico msj_inf">
+		<p>
+			<i></i><b><u>NOTA IMPORTANTE:</u></b> 
+			Las transferencias mayores a S/. 310,000 o US$ 60,000, emitidas a cualquier Entidad Financiera,
+			sólo podrán ser realizadas en días útiles de 8:00 a.m. a 1:45 p.m. El cobro de comisiones se realizará de acuerdo a
+			lo establecido por el banco considerando el importe, hora y destino de la operación.
+		</p>
+	</div>
+
+	
+
+	
+</form>
+
+
+
+
+
+</div>
+
+		
+<p>
+</BODY>
+</HTML>
