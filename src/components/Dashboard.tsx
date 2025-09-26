@@ -6,7 +6,9 @@ import { Car, Upload, FileSpreadsheet, LogOut } from 'lucide-react';
 import { FileUploader } from './FileUploader';
 import { CombinedDataViewer } from './CombinedDataViewer';
 import { FileUploadState, CombinedData } from '../types/excel';
-import { combineExcelData, createSingleFileData } from '../utils/excelProcessor';
+import { createSingleFileData as createBCPData } from '../utils/excelProcessorBCP';
+import { createSingleFileData as createBBVAData } from '../utils/excelProcessorBBVA_v2';
+import { combineExcelData } from '../utils/excelProcessorCombined';
 import { getSession, clearSession } from '../utils/auth';
 
 interface DashboardProps {
@@ -36,12 +38,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
     setFile1State(state);
     if (state.data) {
       if (file2State.data) {
-        // Si hay ambos archivos, combinarlos
-        const combined = combineExcelData(state.data, file2State.data, 'BBVA', 'BCP');
+        // Si hay ambos archivos, procesar individualmente y luego combinar
+        const bbvaData = createBBVAData(state.data);
+        const bcpData = createBCPData(file2State.data);
+        
+        // Combinar los datos ya procesados
+        const combined = {
+          records: [...bbvaData.records, ...bcpData.records],
+          totalRecords: bbvaData.records.length + bcpData.records.length,
+          sources: [state.data.fileName, file2State.data.fileName],
+          processedAt: new Date()
+        };
         setCombinedData(combined);
       } else {
-        // Si solo hay un archivo, crear datos combinados con solo ese archivo
-        const combined = createSingleFileData(state.data, 'BBVA');
+        // Si solo hay un archivo BBVA, crear datos combinados con solo ese archivo
+        const combined = createBBVAData(state.data);
         setCombinedData(combined);
       }
     }
@@ -51,12 +62,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
     setFile2State(state);
     if (state.data) {
       if (file1State.data) {
-        // Si hay ambos archivos, combinarlos
-        const combined = combineExcelData(file1State.data, state.data, 'BBVA', 'BCP');
+        // Si hay ambos archivos, procesar individualmente y luego combinar
+        const bbvaData = createBBVAData(file1State.data);
+        const bcpData = createBCPData(state.data);
+        
+        // Combinar los datos ya procesados
+        const combined = {
+          records: [...bbvaData.records, ...bcpData.records],
+          totalRecords: bbvaData.records.length + bcpData.records.length,
+          sources: [file1State.data.fileName, state.data.fileName],
+          processedAt: new Date()
+        };
         setCombinedData(combined);
       } else {
-        // Si solo hay un archivo, crear datos combinados con solo ese archivo
-        const combined = createSingleFileData(state.data, 'BCP');
+        // Si solo hay un archivo BCP, crear datos combinados con solo ese archivo
+        const combined = createBCPData(state.data);
         setCombinedData(combined);
       }
     }
@@ -193,7 +213,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
           </div>
 
           {/* Tabla de Abonos */}
-          <CombinedDataViewer data={combinedData} />
+          {combinedData && <CombinedDataViewer data={combinedData} />}
         </div>
       </div>
 

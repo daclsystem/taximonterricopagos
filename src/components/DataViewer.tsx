@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Download, Eye, Table, BarChart3 } from 'lucide-react';
 import { ExcelData } from '../types/excel';
-import { exportToCSV } from '../utils/excelProcessor';
+import { exportToCSV } from '../utils/excelProcessorBCP';
 
 interface DataViewerProps {
   data: ExcelData;

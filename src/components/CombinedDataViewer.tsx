@@ -2,9 +2,9 @@
  * Componente para visualizar datos combinados de abonos - Taxi Monterrico
  */
 import React, { useState } from 'react';
-import { Download, Filter, Search, DollarSign, Users, Calendar, FileText } from 'lucide-react';
+import { Download, Filter, Search, DollarSign, Users, Calendar, FileText, Upload } from 'lucide-react';
 import { CombinedData } from '../types/excel';
-import { exportCombinedToCSV } from '../utils/excelProcessor';
+import { exportCombinedToXLSX } from '../utils/excelProcessorCombined';
 
 interface CombinedDataViewerProps {
   data: CombinedData;
@@ -12,8 +12,9 @@ interface CombinedDataViewerProps {
 
 export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'pendiente' | 'procesado' | 'cancelado'>('all');
-  const [sourceFilter, setSourceFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [bankFilter, setBankFilter] = useState<string>('all');
+  const [isImporting, setIsImporting] = useState(false);
 
   // Si no hay datos, mostrar tabla vacía
   if (!data) {
@@ -50,19 +51,13 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
                   DOCUMENTO
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  # DOCUMENTO
+                  CUENTA
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   MONTO
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  CUENTA
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   ESTADO
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  OBSERVACIÓN
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   BANCO
@@ -71,7 +66,7 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               <tr>
-                <td colSpan={9} className="px-6 py-12 text-center">
+                <td colSpan={7} className="px-6 py-12 text-center">
                   <div className="text-center">
                     <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-500 text-lg font-medium">Tabla de Abonos</p>
@@ -87,19 +82,29 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
   }
 
   const filteredRecords = data.records.filter(record => {
+    // Búsqueda por palabra en beneficiario, documento, cuenta, estado, banco
     const matchesSearch = searchTerm === '' || 
       record.beneficiario?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       record.documento?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      record.cuenta_numero?.toLowerCase().includes(searchTerm.toLowerCase());
+      record.cuenta_numero?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      record.estado?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      record.banco?.toLowerCase().includes(searchTerm.toLowerCase());
     
+    // Filtro por estado
     const matchesStatus = statusFilter === 'all' || record.estado === statusFilter;
-    const matchesSource = sourceFilter === 'all' || record.origen === sourceFilter;
     
-    return matchesSearch && matchesStatus && matchesSource;
+    // Filtro por banco
+    const matchesBank = bankFilter === 'all' || record.banco === bankFilter;
+    
+    return matchesSearch && matchesStatus && matchesBank;
   });
 
   const totalMonto = filteredRecords.reduce((sum, record) => sum + (record.monto || record.monto_mn), 0);
   const uniqueClients = new Set(filteredRecords.map(r => r.beneficiario)).size;
+
+  // Extraer opciones dinámicas de los datos
+  const uniqueStatuses = Array.from(new Set(data.records.map(r => r.estado).filter(Boolean))).sort();
+  const uniqueBanks = Array.from(new Set(data.records.map(r => r.banco).filter(Boolean))).sort();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -111,12 +116,77 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
     }
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const exportData = {
       ...data,
       records: filteredRecords
     };
-    exportCombinedToCSV(exportData);
+    try {
+      await exportCombinedToXLSX(exportData);
+    } catch (error) {
+      console.error('Error exportando archivo:', error);
+    }
+  };
+
+  const handleImport = async () => {
+    if (filteredRecords.length === 0) {
+      alert('No hay registros para importar');
+      return;
+    }
+
+    setIsImporting(true);
+    
+    try {
+      // Preparar los datos para la API
+      const cargamasiva = filteredRecords.map((record, index) => ({
+        item: index + 1,
+        beneficiario: record.beneficiario || '',
+        documento: record.documento || record.documento_2 || record.documento_3 || record.documento_tipo || '',
+        cuenta: record.cuenta_numero || '',
+        monto: record.monto || record.monto_mn || 0,
+        estado: record.estado || 'PENDIENTE',
+        banco: record.banco || 'BCP'
+      }));
+
+      // Obtener el idacceso del localStorage
+      const sessionData = localStorage.getItem('taxi_monterrico_session');
+      const session = sessionData ? JSON.parse(sessionData) : null;
+      const agente = session?.idacceso || 'admin';
+      
+      console.log('🔑 Datos de sesión:', session);
+      console.log('👤 Agente obtenido:', agente);
+
+      const requestBody = {
+        agente: agente,
+        ipregistro: "192.168.1.10",
+        cargamasiva: cargamasiva
+      };
+
+      console.log('📤 Enviando datos a la API:', requestBody);
+
+      const response = await fetch('https://api.taximonterrico.com/api/BFlota/abonobanco', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('✅ Importación exitosa:', result);
+        alert(`✅ Importación exitosa! Se enviaron ${cargamasiva.length} registros.`);
+      } else {
+        const errorData = await response.json();
+        console.error('❌ Error en la importación:', errorData);
+        alert(`❌ Error en la importación: ${errorData.message || 'Error desconocido'}`);
+      }
+    } catch (error) {
+      console.error('❌ Error de conexión:', error);
+      alert(`❌ Error de conexión: ${error instanceof Error ? error.message : 'Error desconocido'}`);
+    } finally {
+      setIsImporting(false);
+    }
   };
 
   return (
@@ -134,13 +204,23 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
               <p className="text-sm text-gray-600">Datos combinados y procesados</p>
             </div>
           </div>
-          <button
-            onClick={handleExport}
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
-          >
-            <Download className="h-4 w-4 mr-2" />
-            Exportar CSV
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={handleImport}
+              disabled={isImporting || filteredRecords.length === 0}
+              className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              {isImporting ? 'Importando...' : `Importar (${filteredRecords.length})`}
+            </button>
+            <button
+              onClick={handleExport}
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Exportar XLSX
+            </button>
+          </div>
         </div>
 
         {/* Estadísticas */}
@@ -192,7 +272,7 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <input
                 type="text"
-                placeholder="Buscar por beneficiario, documento o cuenta..."
+                placeholder="Buscar por beneficiario, documento, cuenta, estado o banco..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -201,22 +281,26 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
           </div>
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as any)}
+            onChange={(e) => setStatusFilter(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="all">Todos los estados</option>
-            <option value="ABONO CORRECTO">Abono Correcto</option>
-            <option value="TERMINADA OK">Terminada OK</option>
-            <option value="ERROR">Error</option>
+            <option value="all">Todos los estados ({uniqueStatuses.length})</option>
+            {uniqueStatuses.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
           </select>
           <select
-            value={sourceFilter}
-            onChange={(e) => setSourceFilter(e.target.value)}
+            value={bankFilter}
+            onChange={(e) => setBankFilter(e.target.value)}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="all">Todos los archivos</option>
-            {data.sources.map((source, index) => (
-              <option key={index} value={source}>{source}</option>
+            <option value="all">Todos los bancos ({uniqueBanks.length})</option>
+            {uniqueBanks.map((bank) => (
+              <option key={bank} value={bank}>
+                {bank}
+              </option>
             ))}
           </select>
         </div>
@@ -237,19 +321,13 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
                 DOCUMENTO
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                # DOCUMENTO
+                CUENTA
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 MONTO
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                CUENTA
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 ESTADO
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                OBSERVACIÓN
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 BANCO
@@ -265,30 +343,28 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {record.beneficiario}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {record.documento_tipo || '-'}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {record.documento || record.documento_2 || record.documento_3 || record.documento_tipo || '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {record.documento || '-'}
+                  {record.cuenta_numero || record.cuenta_tipo || '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {record.monto_abonado ? `S/ ${record.monto_abonado.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` : 
                    record.monto ? `S/ ${record.monto.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` : 
                    record.monto_mn ? `S/ ${record.monto_mn.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` : '-'}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {record.cuenta_numero || record.cuenta_tipo || '-'}
-                </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(record.estado)}`}>
                     {record.estado}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {record.observaciones}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
-                  {record.banco || 'BCP'}
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <span className={`${
+                    record.banco === 'BBVA' ? 'text-blue-600' : 'text-purple-600'
+                  }`}>
+                    {record.banco || 'BCP'}
+                  </span>
                 </td>
               </tr>
             ))}

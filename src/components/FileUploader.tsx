@@ -4,7 +4,7 @@
 import React, { useCallback, useState } from 'react';
 import { Upload, File, AlertCircle, CheckCircle } from 'lucide-react';
 import { FileUploadState } from '../types/excel';
-import { processExcelFile, isValidExcelFile, formatFileSize } from '../utils/excelProcessor';
+import { processBCPFile, isValidExcelFile, formatFileSize } from '../utils/excelProcessorBCP';
 import { processBBVAFile } from '../utils/excelProcessorBBVA_v2';
 
 interface FileUploaderProps {
@@ -47,7 +47,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
       if (bankType === 'BBVA') {
         data = await processBBVAFile(file);
       } else {
-        data = await processExcelFile(file, bankType);
+        data = await processBCPFile(file);
       }
       onFileProcessed({
         file,
@@ -56,11 +56,30 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
         error: null
       });
     } catch (error) {
+      let errorMessage = 'Error procesando archivo';
+      
+      if (error instanceof Error) {
+        // Mensajes de error más específicos y amigables
+        if (error.message.includes('Los archivos .xls (Excel 97-2003) no son compatibles')) {
+          errorMessage = 'Los archivos .xls (Excel 97-2003) no son compatibles con esta versión. Por favor, guarda tu archivo como .xlsx (Excel 2007+) e intenta nuevamente.';
+        } else if (error.message.includes('zip')) {
+          errorMessage = 'El archivo Excel parece estar corrupto o no es válido. Por favor, verifica que el archivo no esté dañado e intenta nuevamente.';
+        } else if (error.message.includes('no es un archivo Excel válido')) {
+          errorMessage = 'El archivo seleccionado no es un archivo Excel válido. Por favor, selecciona un archivo .xlsx o .xls.';
+        } else if (error.message.includes('está vacío')) {
+          errorMessage = 'El archivo está vacío o no se pudo leer correctamente. Por favor, verifica el archivo e intenta nuevamente.';
+        } else if (error.message.includes('No se encontraron datos')) {
+          errorMessage = 'No se encontraron datos válidos en el archivo. Por favor, verifica que el archivo contenga la información esperada.';
+        } else {
+          errorMessage = `Error al procesar el archivo: ${error.message}`;
+        }
+      }
+      
       onFileProcessed({
         file: null,
         data: null,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Error procesando archivo'
+        error: errorMessage
       });
     }
   }, [onFileProcessed]);
