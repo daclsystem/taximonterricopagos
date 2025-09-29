@@ -151,7 +151,7 @@ export const CombinedDataViewer: React.FC<CombinedDataViewerProps> = ({ data }) 
       // Obtener el idacceso del localStorage
       const sessionData = localStorage.getItem('taxi_monterrico_session');
       const session = sessionData ? JSON.parse(sessionData) : null;
-      const agente = session?.idacceso || 'admin';
+      const agente = session?.idacceso;
       
       console.log('🔑 Datos de sesión:', session);
       console.log('👤 Agente obtenido:', agente);
